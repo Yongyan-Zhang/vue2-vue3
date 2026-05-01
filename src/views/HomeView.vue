@@ -34,7 +34,8 @@ function closeDrawer() {
 }
 
 onMounted(() => {
-  document.body.style.backgroundImage = "url('/static/img/1-1.webp'), url('/static/img/1-1.jpg')"
+  const base = import.meta.env.BASE_URL
+  document.body.style.backgroundImage = `url('${base}static/img/1-1.webp'), url('${base}static/img/1-1.jpg')`
 })
 </script>
 
