@@ -13,16 +13,24 @@
   // 兼容处理：优先使用 orientationchange，其次 resize
   const resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
 
+  // 桌面视口不应用移动端 rem 缩放，否则根字号会被放大到 100px+ 导致默认控件巨大
+  const MOBILE_BREAKPOINT = 640;
+
   const recalc = () => {
     const clientWidth = docEl.clientWidth;
-    
+
     // 防御性编程：如果宽度为 0 (例如元素未渲染)，则不计算
     if (!clientWidth) return;
+
+    if (clientWidth >= MOBILE_BREAKPOINT) {
+      docEl.style.fontSize = '';
+      return;
+    }
 
     // 核心算法：保持与你原代码一致
     // 20 * (当前宽度 / 320)
     const fontSize = 20 * (clientWidth / 320);
-    
+
     docEl.style.fontSize = `${fontSize}px`;
   };
 
